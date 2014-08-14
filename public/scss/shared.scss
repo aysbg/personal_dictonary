@@ -1,0 +1,262 @@
+// Colors
+// -------------------------
+$teal: #38b8cb;
+$darkerBlue: #2a394f;
+$darkBlue: #364760;
+$blue: #304058;
+$lightBlue: #15a4fa;
+
+$grey: #eef1f7;
+$altGrey: e8ecf2;
+$lighterGrey: #d5dae6;
+$lightestGrey: #f0f4f6;
+
+// Mixins
+// -------------------------
+@mixin clearfix() {
+  &:before,
+  &:after {
+    content: " "; // 1
+    display: table; // 2
+  }
+  &:after {
+    clear: both;
+  }
+}
+
+@mixin transition($transition) {
+  -webkit-transition: $transition;
+  -o-transition: $transition;
+  transition: $transition;
+}
+
+@mixin rotate($degrees) {
+  -webkit-transform: rotate($degrees);
+  -ms-transform: rotate($degrees); // IE9 only
+  transform: rotate($degrees);
+}
+
+
+// Shared
+// -------------------------
+body {
+//  background-color: #f5f5f5;
+  @include clearfix();
+  padding-top: 80px;
+}
+
+
+// Alerts
+.alerts-container {
+  position: fixed;
+  width: 80%;
+  top: 15px;
+  left: 50%;
+  margin-left: -40%;
+  z-index: 1999;
+}
+
+
+// Custom select element
+// -------------------------
+label.custom-select {
+  display: inline-block;
+  position: relative;
+  width: 100%;
+
+  &:before {
+    content:'';
+    display: block;
+    position: absolute;
+    right: 5px;
+    top: 1px;
+    width: 30px;
+    height: 28px;
+    background: #fff;
+    pointer-events: none;
+    z-index: 98;
+  }
+
+  &:after {
+    content:'>';
+    position: absolute;
+    right: 16px;
+    top: 8px;
+    padding: 0 0 2px;
+    font: 14px "Consolas", monospace;
+    color: #666;
+
+    //transform: rotate(90deg);
+    border: none;
+    pointer-events:none;
+    z-index: 99;
+    @include rotate(90deg);
+  }
+
+  select {
+    position: relative;
+    display: inline-block;
+    height: 34px;
+    width: 100%;
+    margin: 0;
+    padding: 7px 12px;
+    line-height: 18px;
+    font-weight: normal;
+    border-radius:4px;
+    box-shadow: none;
+    background: #fff;
+    color: #333;
+    border: 1px solid #ccc;
+    outline: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    cursor: pointer;
+    @include transition(all 0.2s linear);
+
+    option {
+      border: 0 none;
+      outline: 0 none;
+    }
+
+    &:-moz-focusring {
+      color: transparent;
+      text-shadow: 0 0 0 #000;
+    }
+
+  }
+
+  // Firefox has gigantic padding-right property
+  // so this is only for webkit based browsers
+  @media screen and (-webkit-min-device-pixel-ratio:0) {
+    select {
+      padding-right:18px
+    }
+  }
+}
+
+
+// Special action button
+.action-button {
+  border: none;
+  box-shadow: none;
+  background: transparent;
+}
+
+
+// Content loader
+.navbar {
+  min-height: 60px;
+  background-color: $darkerBlue;
+  border: none;
+  border-radius: 0;
+
+  .container-fluid {
+    position: relative;
+  }
+
+  .navbar-brand {
+    padding: 20px 15px;
+    font-family: "Source Sans Pro", sans-serif;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 20px;
+    height: 60px;
+    color: $lighterGrey;
+
+    &:hover {
+      color: $grey;
+    }
+  }
+
+  .navbar-nav > li > a {
+    color: $lightestGrey;
+
+    &:hover {
+      color: $lightestGrey;
+      background-color: $blue;
+    }
+  }
+
+  .nav .open > a,
+  .nav .open > a:hover,
+  .nav .open > a:focus,
+  .navbar-nav > .active > a,
+  .navbar-nav > .active > a:hover,
+  .navbar-nav > .active > a:focus {
+    color: $lightBlue;
+    background-color: $blue;
+  }
+
+  .sidebar-toggle {
+    position: relative;
+    float: left;
+    margin-right: 10px;
+    padding: 9px 10px;
+    margin-top: 12px;
+    margin-bottom: 8px;
+    background-color: transparent;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+
+    .icon-bar {
+      display: block;
+      width: 22px;
+      height: 2px;
+      margin-bottom: 4px;
+      border-radius: 1px;
+      background-color: #fff;
+    }
+
+    &:focus,
+    &:active {
+      outline: none;
+    }
+  }
+
+  .navbar-toggle {
+    margin-top: 12px;
+  }
+
+  @media (min-width: 768px) {
+    .navbar-nav > li > a {
+      padding-top: 20px;
+      padding-bottom: 20px;
+    }
+  }
+}
+
+.content-loader {
+  position: absolute;
+  top: 9px;
+  left: 175px;
+
+  width: 32px;
+  height: 32px;
+
+  background-color: #333;
+
+  border-radius: 100%;
+  -webkit-animation: scaleout 1.0s infinite ease-in-out;
+  animation: scaleout 1.0s infinite ease-in-out;
+}
+
+@-webkit-keyframes scaleout {
+  0% { -webkit-transform: scale(0.0) }
+  100% {
+    -webkit-transform: scale(1.0);
+    opacity: 0;
+  }
+}
+
+@keyframes scaleout {
+  0% {
+    transform: scale(0.0);
+    -webkit-transform: scale(0.0);
+  } 100% {
+      transform: scale(1.0);
+      -webkit-transform: scale(1.0);
+      opacity: 0;
+    }
+}

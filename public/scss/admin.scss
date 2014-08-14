@@ -1,0 +1,96 @@
+// Admin page
+.sidebar {
+  position: fixed;
+  top: 60px;
+  left: 0;
+  bottom: 0;
+  width: 280px;
+  height: 100%;
+  padding: 15px;
+  background: $darkBlue;
+  color: $lightestGrey;
+  transition: left .5s ease;
+
+  &.hide-to-left {
+    left: -100%;
+  }
+
+  input,
+  .custom-select select {
+    color: $lighterGrey;
+    background-color: $darkerBlue;
+    border-color: $darkerBlue;
+    box-shadow: none;
+
+    &:focus,
+    &:active {
+      outline: none;
+      border-color: $blue;
+    }
+  }
+
+  .custom-select {
+    &:before {
+      background: $darkerBlue;
+    }
+
+    &:after {
+      color: $grey;
+    }
+  }
+}
+
+
+.dashboard {
+  position: fixed;
+  height: 100%;
+  top: 60px;
+  right: 0;
+  bottom: 0;
+  left: 280px;
+  padding: 30px 15px;
+  transition: left .25s linear .1s;
+
+  &.full {
+    left: 0;
+  }
+
+  .words-wrapper {
+    form {
+      margin-bottom: 20px;
+    }
+  }
+
+  .btn-translate {
+    margin-top: 24px;
+  }
+
+  .control-cells {
+    text-align: center;
+  }
+
+  .nav-tabs > li > a {
+    cursor: pointer;
+  }
+
+  .tab-content {
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-top: none;
+  }
+
+  .translation-filter {
+    width: 320px;
+    margin-bottom: 20px;
+  }
+
+  .edit-field {
+    span {
+      cursor: pointer;
+    }
+
+    input {
+      margin-right: 3px;
+    }
+  }
+}

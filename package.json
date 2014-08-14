@@ -1,0 +1,56 @@
+{
+  "name": "personal-dictionary",
+  "version": "1.0.0",
+  "description": "Personal Dictionary where you can enter translations",
+  "keywords": [
+    "Bogdan Gavrilovic",
+    "Node.js",
+    "application",
+    "dictionary"
+  ],
+  "author": {
+    "name": "Bogdan Gavrilovic",
+    "email": "bogdan.gavrilovic@gmail.com",
+    "url": "http://gavrilovic.me"
+  },
+  "homepage": "",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/openshift/origin-server"
+  },
+
+  "engines": {
+    "node": ">= 0.10.0",
+    "npm": ">= 1.0.0"
+  },
+
+  "dependencies": {
+    "express": "4.x",
+    "morgan": "~1.x",
+    "body-parser": "~1.x",
+    "method-override": "~1.x",
+    "utils-merge": "1.0.0",
+    "mongodb": "*",
+    "mongoose": "*"
+  },
+
+  "bundleDependencies": [],
+
+  "devDependencies": {
+    "charlatan": "0.x",
+    "gulp": "^3.6.1",
+    "gulp-concat": "^2.2.0",
+    "gulp-sass": "0.7.x",
+    "gulp-uglify": "^0.2.1",
+    "gulp-coffee": "^1.4.3",
+    "gulp-util": "^2.2.14",
+    "gulp-watch": "x",
+    "karma": "^0.12.16",
+    "karma-jasmine": "^0.1.5",
+    "karma-phantomjs-launcher": "*",
+    "nodemon": "*"
+  },
+
+  "private": true,
+  "main": "server.js"
+}

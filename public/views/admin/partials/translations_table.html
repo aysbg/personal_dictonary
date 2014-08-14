@@ -1,0 +1,44 @@
+<div class="row" ng-show="uiConfig.showTranslationTable">
+  <div class="col-md-12 words-wrapper">
+    <tabset justified="true">
+      <tab ng-repeat="trans in translations" heading="{{ trans.wordType }}">
+
+        <div class="translation-filter">
+          <label for="filter-translations">Search translations:</label>
+          <input type="text" id="filter-translations" class="form-control" ng-model="filterTranslations" placeholder="You can search both columns"/>
+        </div>
+
+        <table class="table table-striped">
+          <thead>
+          <tr>
+            <th>Original</th>
+            <th>Translated</th>
+            <th class="control-cells">Delete</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr ng-if="trans.words.length > 0" ng-repeat="word in trans.words | filter:filterTranslations">
+            <td>
+              <div edit-field="word.original" field-type="original" word-type="{{trans.wordType}}"
+                   callback-fn="editTranslation(changedFrom, changedTo, fieldType, wordType)"></div>
+            </td>
+            <td>
+              <div edit-field="word.translated" field-type="translated" word-type="{{trans.wordType}}"
+                   callback-fn="editTranslation(changedFrom, changedTo, fieldType, wordType)"></div>
+            </td>
+            <td class="control-cells">
+              <button class="action-button" ng-click="$parent.deleteTranslation(word, trans.wordType)">
+                <span class="glyphicon glyphicon-remove"></span>
+              </button>
+          </tr>
+          <tr ng-if="trans.words.length == 0">
+            <td colspan="3">
+              No translations
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </tab>
+    </tabset>
+  </div>
+</div>

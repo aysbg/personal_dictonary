@@ -1,0 +1,13 @@
+<div ng-controller="AdminCtrl" ng-init="init()">
+  <section class="sidebar" ng-class="uiConfig.sidebarVisibility == true ? '':'hide-to-left'">
+    <div ng-include="'views/admin/partials/languages.html'"></div>
+    <div ng-include="'views/admin/partials/word_types.html'"></div>
+  </section>
+
+  <section class="dashboard" ng-class="uiConfig.sidebarVisibility == true ? '':'full'">
+    <div class="container-fluid">
+      <div ng-include="'views/admin/partials/add_translations.html'"></div>
+      <div ng-include="'views/admin/partials/translations_table.html'"></div>
+    </div>
+  </section>
+</div>

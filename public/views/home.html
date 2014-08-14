@@ -1,0 +1,37 @@
+<section ng-controller="LoginCtrl" ng-init="init()" class="row login">
+  <div class="col-md-offset-3 col-md-6">
+    <form ng-show="showUserCreateForm" name="userRegisterForm" ng-submit="createNewUser(userRegisterForm.$valid)">
+      <h3>Need account?</h3>
+
+      <div class="form-group"
+           ng-class="{ 'has-error' : userRegisterForm.email.$invalid && !userRegisterForm.email.$pristine }">
+        <label for="email_address">Email address</label>
+        <input type="email" class="form-control" id="email_address" name="email" placeholder="Enter email"
+               ng-model="newUser.email" required>
+        <p ng-show="userRegisterForm.email.$invalid && !userRegisterForm.email.$pristine" class="help-block">Please, enter a valid email.</p>
+      </div>
+
+      <div class="form-group"
+           ng-class="{ 'has-error' : userRegisterForm.name.$invalid && !userRegisterForm.name.$pristine }">
+        <label for="user_name">Your name</label>
+        <input type="text" class="form-control" id="user_name" name="name"
+               placeholder="Enter name" ng-model="newUser.name" required>
+        <p ng-show="userRegisterForm.name.$invalid && !userRegisterForm.name.$pristine" class="help-block">Please enter your name.</p>
+      </div>
+
+      <button type="submit" class="btn btn-primary" ng-disabled="userRegisterForm.$invalid">
+        Register
+      </button>
+
+      <a class="has-account" href="/login">Already registered?</a>
+    </form>
+
+    <div class="success-register" ng-show="successRegister">
+      <p>You have registered successfully.</p>
+      <p>Your generated password is: <strong>{{ generatedPassword }}</strong></p>
+      <p><em>Please save it!</em></p>
+      <a href="/login">Login?</a>
+    </div>
+  </div>
+
+</section>

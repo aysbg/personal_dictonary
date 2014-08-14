@@ -1,0 +1,13 @@
+<div class="types-form-holder" style="margin-bottom: 40px;">
+  <h4>Add new word types</h4>
+  <form class="form" role="form" name="newWordTypeForm" ng-submit="addNewWordType(newWordTypeForm.$valid)">
+    <div class="form-group">
+      <input type="text" class="form-control" name="name" ng-model="$parent.newWordType" placeholder="Enter type name" required>
+      <p ng-show="newWordTypeForm.name.$invalid && !newWordTypeForm.name.$pristine" class="help-block">Please enter a value.</p>
+    </div>
+
+    <button type="submit" class="btn btn-primary" ng-disabled="newWordTypeForm.$invalid">
+      Add type
+    </button>
+  </form>
+</div>
