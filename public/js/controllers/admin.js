@@ -1,4 +1,4 @@
-(function(angular) {
+(function (angular) {
   'use strict';
 
   var AdminCtrl = [
@@ -22,13 +22,13 @@
         $scope.getLanguages();
       };
 
-      $scope.$on('showLangSection', function(event, mass) {
+      $scope.$on('showLangSection', function (event, mass) {
         $scope.uiConfig.languagesSection = mass;
       });
-      $scope.$on('showWordTypesSection', function(event, mass) {
+      $scope.$on('showWordTypesSection', function (event, mass) {
         $scope.uiConfig.wordTypesSection = mass;
       });
-      $scope.$on('toggleSidebar', function(event, mass) {
+      $scope.$on('toggleSidebar', function (event, mass) {
         $scope.uiConfig.sidebarVisibility = mass;
       });
 
@@ -50,13 +50,13 @@
           };
 
           LangService.addWordType(data)
-            .success(function() {
+            .success(function () {
               $scope.getLanguages();
               AlertService.show('success', 'New word type added', 2500);
             })
-            .error(function(status) {
+            .error(function (status) {
               console.log("there was something wrong adding word type: " + status);
-            })
+            });
         }
       };
 

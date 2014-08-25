@@ -1,12 +1,11 @@
-#!/bin/env node
 // modules =================================================
-var fs             = require('fs');
-var express        = require('express');
-var morgan         = require('morgan');
-var bodyParser     = require('body-parser');
-var methodOverride = require('method-override');
-var mongoose 	     = require('mongoose');
-var app            = express();
+var fs              = require('fs');
+var express         = require('express');
+var morgan          = require('morgan');
+var bodyParser      = require('body-parser');
+var methodOverride  = require('method-override');
+var mongoose        = require('mongoose');
+var app             = express();
 
 app = express();
 

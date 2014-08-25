@@ -1,9 +1,9 @@
-(function(angular) {
+(function (angular) {
   'use strict';
 
   angular.module('personalDictApp.directives')
 
-    .directive('membershipList', function() {
+    .directive('membershipList', function () {
       return {
           restrict: 'A',
 
