@@ -8,12 +8,11 @@
       return {
 
         getUserLangs: function (email) {
-          return $http.get('/languages/' + email);
+          return $http.get('/translations/' + email);
         },
 
         setLangs: function (newLangs) {
-          console.log(newLangs);
-          return $http.post('/languages', newLangs);
+          return $http.post('/translations', newLangs);
         },
 
         addWordType: function (data) {
@@ -25,15 +24,15 @@
         },
 
         addNewTranslation: function (data) {
-          return $http.post('/languages/translations/insert', data);
+          return $http.post('/translations/insert', data);
         },
 
         updateTranslation: function (data) {
-          return $http.post('/languages/translations/update', data);
+          return $http.post('/translations/update', data);
         },
 
         removeTranslation: function (wordPack) {
-          return $http.post('/languages/translations/delete', wordPack);
+          return $http.post('/translations/delete', wordPack);
         }
 
       };
