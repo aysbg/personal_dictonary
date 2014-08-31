@@ -17,69 +17,55 @@
        * Controller init function
        */
       $scope.init = function () {
-        $scope.userEmail = AdminModel.getUserEmail();
+//        $scope.userEmail = AdminModel.getUserEmail();
+        $scope.userEmail = 'nina@bogi.com';
         $scope.uiConfig.showTranslationTable = true;
-        $scope.getLanguages();
+        $scope.getTranslations();
+        $scope.getWordTypes();
       };
 
-      $scope.$on('showLangSection', function (event, mass) {
-        $scope.uiConfig.languagesSection = mass;
-      });
-      $scope.$on('showWordTypesSection', function (event, mass) {
-        $scope.uiConfig.wordTypesSection = mass;
-      });
-      $scope.$on('toggleSidebar', function (event, mass) {
-        $scope.uiConfig.sidebarVisibility = mass;
-      });
-
       /**
-       * Adds new types of words
+       * Function to retrieve translations for the logged in user
        */
-      $scope.addNewWordType = function (isFormValid) {
-        if (isFormValid) {
-          var data = {
-            user_email: $scope.userEmail,
-            native_language: $scope.transLanguages.fromLang,
-            translating_to: $scope.transLanguages.toLang,
-            translations: [
-              {
-                wordType: $scope.newWordType,
-                words: []
-              }
-            ]
-          };
+      $scope.getTranslations = function () {
+        // fetch the translations
+        LangService.getUserLangs($scope.userEmail)
+          .success(function(data) {
+            console.log(data);
 
-          LangService.addWordType(data)
-            .success(function () {
-              $scope.getLanguages();
-              AlertService.show('success', 'New word type added', 2500);
-            })
-            .error(function (status) {
-              console.log("there was something wrong adding word type: " + status);
-            });
-        }
+            if (data.length > 0) {
+//              $scope.placeTranslations(data);
+//              $scope.displayLangSection(false);
+              $scope.uiConfig.showTranslationTable = true;
+            } else {
+//              $scope.displayLangSection(true);
+              $scope.uiConfig.showTranslationTable = false;
+            }
+          })
+          .error(function() {
+            console.log("there was an error getting users translations!");
+          });
       };
 
       /**
        * Add new translation
        */
-      $scope.addNewTrans = function () {
+      $scope.addNewTranslations = function () {
         // check if all fields have been entered
         if (checkInputValues() === true) {
           var newTranslation = {
             user_email: $scope.userEmail,
-            native_language: $scope.transLanguages.fromLang,
-            translating_to: $scope.transLanguages.toLang,
-            wordType: $scope.newTranslation.wordType,
-            words: {
+            translating_to: $scope.transLanguages.toLanguage,
+            word_type: $scope.newTranslation.wordType,
+            words: [{
               original: $scope.newTranslation.original,
               translated: $scope.newTranslation.translated
-            }
+            }]
           };
 
           LangService.addNewTranslation(newTranslation)
             .success(function() {
-              $scope.getLanguages();
+              $scope.getTranslations();
               $scope.newTranslation = {};
             })
             .error(function(status) {
@@ -92,135 +78,36 @@
 
       };
 
+
       /**
-       * Update Translation
-       *
-       * @param changedFrom
-       * @param changedTo
-       * @param fieldType
-       * @param wordType
+       * Adds new types of words
        */
-      $scope.editTranslation = function (changedFrom, changedTo, fieldType, wordType) {
-        var changedWords = [],
-            updateData = {};
+      $scope.addNewWordType = function (isFormValid) {
+        if (isFormValid) {
+          var data = {
+            name: $scope.newWordType
+          };
 
-        $scope.translations.forEach(function (trans) {
-          // find words for given wordType
-          if (trans.wordType === wordType) {
-            changedWords = trans.words;
-          }
-        });
-
-        // iterate through all words for selected wordType
-        for (var i = 0; i < changedWords.length; i++) {
-          if (changedWords[i][fieldType] === changedFrom) {
-            changedWords[i][fieldType] = changedTo;
-          }
+          LangService.addWordType(data)
+            .success(function () {
+              $scope.getTranslations();
+              $scope.getWordTypes();
+              AlertService.show('success', 'New word type added', 2500);
+            })
+            .error(function (status) {
+              console.log("there was something wrong adding word type: " + status);
+            });
         }
-
-        updateData = {
-          user_email: $scope.userEmail,
-          wordType: wordType,
-          words: changedWords
-        };
-
-        LangService.updateTranslation(updateData)
-          .success(function () {
-            console.log("great success!");
-          })
-          .error(function (status) {
-            console.log("There has been an error updating translation: " + status);
-          });
       };
 
-      /**
-       * Delete translation
-       *
-       * @param word
-       * @param wordType
-       */
-      $scope.deleteTranslation = function (word, wordType) {
-
-        var wordPack = {
-          user_email: $scope.userEmail,
-          wordType: wordType,
-          original: word.original,
-          translated: word.translated
-        };
-
-        LangService.removeTranslation(wordPack)
-          .success(function() {
-            $scope.getLanguages();
-            AlertService.show('success', 'Translation has been successfully removed', 2500);
-          })
-          .error(function(status) {
-            console.log("There was an error deleting a translation: " + status);
-          });
-      };
-
-      /**
-       * Sets languages for translation
-       */
-      $scope.setLanguages = function () {
-        var setLangs = {
-          user_email: $scope.userEmail,
-          native_language: $scope.newLang.native,
-          translating_to: $scope.newLang.translate,
-          translations: []
-        };
-
-        LangService.setLangs(setLangs)
-          .success(function() {
-            AlertService.show('success', 'Languages set!', 2500);
-            $scope.getLanguages();
-          })
-          .error(function(status) {
-            console.log("there was an error setting new langs: " + status);
-          });
-      };
-
-      /**
-       * Gets user inserted languages for translation packs
-       */
-      $scope.getLanguages = function () {
-
-        LangService.getUserLangs($scope.userEmail)
+      $scope.getWordTypes = function () {
+        LangService.getWordTypes()
           .success(function(data) {
-            // if there are already defined translations, show chooser
-            if (data.length > 0) {
-              $scope.placeTranslations(data);
-              $scope.displayLangSection(false);
-              $scope.uiConfig.showTranslationTable = true;
-            } else {
-              $scope.displayLangSection(true);
-              $scope.uiConfig.showTranslationTable = false;
-            }
+            $scope.wordTypes = data;
           })
-          .error(function(data) {
-            console.log("there was an error getting new langs: " + data);
-          })
-      };
-
-      /**
-       * Set translation data to correct objects for easier showing in the UI
-       * @param data
-       */
-      $scope.placeTranslations = function (data) {
-        data.length > 0 ? $scope.userLanguages = data[0] : $scope.userLanguages = data;
-        $scope.translations = $scope.userLanguages.translations;
-
-        $scope.transLanguages.listNative = [];
-        $scope.transLanguages.listTransTo = [];
-
-        for(var i = 0; i < data.length; i++) {
-          $scope.transLanguages.listNative.push(data[i].native_language);
-          $scope.transLanguages.listTransTo.push(data[i].translating_to);
-        }
-
-        $scope.transLanguages.fromLang = $scope.transLanguages.listNative[0];
-        $scope.transLanguages.toLang = $scope.transLanguages.listTransTo[0];
-
-        $scope.uiConfig.wordTypesSection = ($scope.translations.length === 0);
+          .error(function() {
+            console.log('there was something wrong fetching word types');
+          });
       };
 
       /**
@@ -245,13 +132,10 @@
        * Input value checker
        */
       var checkInputValues = function () {
-        if ($scope.transLanguages.fromLang === undefined) {
-          return "Select original language";
-        }
-
-        if ($scope.transLanguages.toLang === undefined) {
-          return "Select translating language";
-        }
+// fix this
+//        if ($scope.transLanguages.toLanguage === undefined) {
+//          return "Select translating language";
+//        }
 
         if ($scope.newTranslation.wordType === undefined) {
           return "Select type of word";

@@ -5,7 +5,7 @@
 
       <div class="form-group"
            ng-class="{ 'has-error' : userRegisterForm.email.$invalid && !userRegisterForm.email.$pristine }">
-        <label for="email_address">Email address</label>
+        <label for="email_address">Email address:</label>
         <input type="email" class="form-control" id="email_address" name="email" placeholder="Enter email"
                ng-model="newUser.email" required>
         <p ng-show="userRegisterForm.email.$invalid && !userRegisterForm.email.$pristine" class="help-block">Please, enter a valid email.</p>
@@ -13,10 +13,18 @@
 
       <div class="form-group"
            ng-class="{ 'has-error' : userRegisterForm.name.$invalid && !userRegisterForm.name.$pristine }">
-        <label for="user_name">Your name</label>
+        <label for="user_name">Name:</label>
         <input type="text" class="form-control" id="user_name" name="name"
                placeholder="Enter name" ng-model="newUser.name" required>
         <p ng-show="userRegisterForm.name.$invalid && !userRegisterForm.name.$pristine" class="help-block">Please enter your name.</p>
+      </div>
+      
+      <div class="form-group"
+           ng-class="{ 'has-error' : userRegisterForm.native.$invalid && !userRegisterForm.native.$pristine }">
+        <label for="native_language">Native language:</label>
+        <input type="text" class="form-control" id="native_language" name="native"
+               placeholder="Enter language name" ng-model="newUser.native" required>
+        <p ng-show="userRegisterForm.native.$invalid && !userRegisterForm.native.$pristine" class="help-block">Please enter your native language.</p>
       </div>
 
       <button type="submit" class="btn btn-primary" ng-disabled="userRegisterForm.$invalid">

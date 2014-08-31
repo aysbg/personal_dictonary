@@ -14,7 +14,8 @@ var port, ipAddr;
 // Lets check if its OpenShift
 if (process.env.OPENSHIFT_NODEJS_PORT) {
   var dbName = "/dictionary";
-  var connection_string = process.env.OPENSHIFT_MONGODB_DB_USERNAME + ":" +  process.env.OPENSHIFT_MONGODB_DB_PASSWORD + "@" + process.env.OPENSHIFT_MONGODB_DB_HOST + dbName;
+  var connection_string = process.env.OPENSHIFT_MONGODB_DB_USERNAME + ":" +  
+      process.env.OPENSHIFT_MONGODB_DB_PASSWORD + "@" + process.env.OPENSHIFT_MONGODB_DB_HOST + dbName;
 
   mongoose.connect(connection_string);
 

@@ -1,28 +1,22 @@
 <div class="" style="margin-bottom: 40px;">
-  <form class="form-inline" role="form" ng-show="$parent.transLanguages.addGroup">
-    <h4>Set languages</h4>
+  <form class="form" role="form" >
+    <h4>Set language:</h4>
 
     <div class="form-group">
-      <label class="sr-only" for="nativeLanguage">Set your native language:</label>
-      <input type="text" class="form-control" id="nativeLanguage" ng-model="$parent.newLang.native" placeholder="Enter native lang">
+      <input type="text" class="form-control" id="translateLanguage" ng-model="$parent.transLanguages.toLanguage" placeholder="Enter translate lang">
     </div>
-
     <div class="form-group">
-      <label class="sr-only" for="translateLanguage">Set translation language:</label>
-      <input type="text" class="form-control" id="translateLanguage" ng-model="$parent.newLang.translate" placeholder="Enter translate lang">
+      <a href="#" ng-click="$parent.toggleLanguagesSections()">New language?</a>
     </div>
-
-    <button type="submit" class="btn btn-default" ng-click="setLanguages()">Set</button>
   </form>
 
-  <div ng-hide="$parent.transLanguages.addGroup">
-    <h4>Choose languages</h4>
+  <div ng-hide="true">
+    <h4>Choose language:</h4>
 
     <div class="form-group">
       <label class="custom-select">
-        <select name="chooseLang" ng-model="$parent.transLanguages.fromLang">
-          <option ng-repeat="lang in $parent.transLanguages.listNative"
-                  value="{{ lang }}">
+        <select name="chooseLang" ng-model="$parent.transLanguages.toLanguage">
+          <option ng-repeat="lang in $parent.transLanguages.translating_to" value="{{ lang }}">
             {{ lang }}
           </option>
         </select>
@@ -30,17 +24,7 @@
     </div>
 
     <div class="form-group">
-      <label class="custom-select">
-        <select name="chooseLang" ng-model="$parent.transLanguages.toLang">
-          <option ng-repeat="lang in $parent.transLanguages.listTransTo" value="{{ lang }}">
-            {{ lang }}
-          </option>
-        </select>
-      </label>
-    </div>
-
-    <div class="form-group">
-      <a href="#" ng-click="$parent.toggleLanguagesSections()">New languages?</a>
+      <a href="#" ng-click="$parent.toggleLanguagesSections()">New language?</a>
     </div>
   </div>
 

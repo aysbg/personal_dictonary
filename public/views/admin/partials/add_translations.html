@@ -1,13 +1,13 @@
 <div class="row">
   <div class="col-md-12 words-wrapper">
     <legend>Add translations</legend>
-    <form class="row" name="addNewTranslations" ng-submit="addNewTrans()">
+    <form class="row" name="addNewTranslations" ng-submit="$parent.addNewTranslations()">
       <div class="form-group col-sm-4 col-md-2">
         <label for="word_type">Type of word:</label>
         <label class="custom-select">
           <select name="word_type" id="word_type" ng-model="newTranslation.wordType">
-            <option ng-repeat="trans in translations" value="{{ trans.wordType }}">
-              {{ trans.wordType }}
+            <option ng-repeat="wt in wordTypes" value="{{ wt.name }}">
+              {{ wt.name }}
             </option>
           </select>
         </label>
