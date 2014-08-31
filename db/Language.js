@@ -2,7 +2,7 @@ var mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 
 var languageSchema = new Schema({
-  user_email: { type: String, unique: true },
+  user_email: String,
   translating_to: String,
   word_type: String,
   words: [
