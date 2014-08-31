@@ -22,7 +22,8 @@
             var newUser = {
               name: $scope.newUser.name,
               email: $scope.newUser.email,
-              password: Helpers.randomString(16)
+              password: Helpers.randomString(16),
+              native_language: $scope.newUser.native
             };
 
             UserService.insert(newUser)
