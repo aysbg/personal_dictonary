@@ -14,9 +14,11 @@ module.exports = function (app) {
 //      res.send('im the about page!');
 //    });
 //
+  var path = require('path');
 
-  var User = require('../db/User.js');
-  var Lang = require('../db/Language.js');
+  var User  = require('../db/User.js');
+  var Lang  = require('../db/Language.js');
+  var WT    = require('../db/WordType.js');
 
 
   // Language routes
@@ -41,26 +43,23 @@ module.exports = function (app) {
     });
   });
 
-  app.post('/languages/types', function (req, res) {
-    var userEmail = req.body.user_email;
-    var wordings = {
-      wordType: req.body.translations[0].wordType,
-      words: []
-    };
+  app.post('/wordtypes', function (req, res) {
+    var word = new WT(req.body);
 
-    Lang.collection.update(
-      { user_email: userEmail },
-      { $push: { translations: wordings } },
-      function(err) {
-        if(!err) {
-          console.log('lang is updated');
-          return res.send(true);
-        } else {
-          console.log(err);
-        }
+    word.save(function(err, w) {
+      if (err) return console.log(err);
+      return res.send(w);
+    })
+  });
+
+  app.get('/wordtypes', function (req, res) {
+    WT.find(function(err, docs) {
+      if (err) {
+        return console.log(err);
       }
-    );
 
+      return res.json(docs);
+    });
   });
 
   app.post('/languages/translations/insert', function (req, res) {
@@ -202,6 +201,6 @@ module.exports = function (app) {
   // -------------------------
   // route to handle all angular requests
   app.get('*', function(req, res) {
-    res.sendfile('./public/views/layout.html');
+    res.sendFile(path.resolve('./public/views/layout.html'));
   });
 };
