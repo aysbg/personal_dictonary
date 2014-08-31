@@ -36,9 +36,10 @@ describe('Services: Users', function() {
         name: 'Jon Doe',
         email: 'jon@doe.com',
         password: 'password',
+        native_language: 'serbian',
         date: '20140625'
       };
-      httpBackend.expectPOST('/users', newUser).respond(201, '');
+      httpBackend.expectPOST('/users', newUser).respond(200, '');
       return userService.insert(newUser);
     });
     it('can check if account exists', function() {
