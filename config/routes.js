@@ -23,7 +23,7 @@ module.exports = function (app) {
 
   // Language routes
   // -------------------------
-  app.get('/languages/:email', function (req, res) {
+  app.get('/translations/:email', function (req, res) {
     Lang.find({ user_email: req.params.email }, function(err, docs) {
       if (!err) {
         res.json(docs);
@@ -33,7 +33,7 @@ module.exports = function (app) {
     });
   });
 
-  app.post('/languages', function (req, res) {
+  app.post('/translations/insert', function (req, res) {
     var lang = new Lang(req.body);
     console.log(req.body);
 
@@ -62,30 +62,30 @@ module.exports = function (app) {
     });
   });
 
-  app.post('/languages/translations/insert', function (req, res) {
-    var userEmail = req.body.user_email,
-        transLang = req.body.translating_to,
-        wordType = req.body.wordType,
-        words = req.body.words;
-
-    Lang.collection.update(
-      { user_email: userEmail, translating_to: transLang, 'translations.wordType': wordType },
-      { $push: { 'translations.$.words': words } },
-      function(err) {
-        if(!err) {
-          console.log('translations added');
-          return res.send(true);
-        } else {
-          console.log(err);
-        }
-      }
-    );
-
-  });
+//  app.post('/translations/insert', function (req, res) {
+//    var userEmail = req.body.user_email,
+//        transLang = req.body.translating_to,
+//        wordType = req.body.wordType,
+//        words = req.body.words;
+//
+//    Lang.collection.update(
+//      { user_email: userEmail, translating_to: transLang, 'translations.wordType': wordType },
+//      { $push: { 'translations.$.words': words } },
+//      function(err) {
+//        if(!err) {
+//          console.log('translations added');
+//          return res.send(true);
+//        } else {
+//          console.log(err);
+//        }
+//      }
+//    );
+//
+//  });
 
   // Edit translation
   // Notice: This will replace whole translation of the given wordType
-  app.post('/languages/translations/update', function (req, res) {
+  app.post('/translations/update', function (req, res) {
     var userEmail = req.body.user_email,
         wordType = req.body.wordType,
         words = req.body.words;
@@ -105,7 +105,7 @@ module.exports = function (app) {
   });
 
   // Delete translation
-  app.post('/languages/translations/delete', function (req, res) {
+  app.post('/translations/delete', function (req, res) {
     // values to find translation
     var userEmail = req.body.user_email,
         wordType = req.body.wordType,
