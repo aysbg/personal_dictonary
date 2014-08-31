@@ -31,12 +31,14 @@
         // fetch the translations
         LangService.getUserLangs($scope.userEmail)
           .success(function(data) {
+            console.log(data);
+
             if (data.length > 0) {
-              $scope.placeTranslations(data);
-              $scope.displayLangSection(false);
+//              $scope.placeTranslations(data);
+//              $scope.displayLangSection(false);
               $scope.uiConfig.showTranslationTable = true;
             } else {
-              $scope.displayLangSection(true);
+//              $scope.displayLangSection(true);
               $scope.uiConfig.showTranslationTable = false;
             }
           })
@@ -44,6 +46,38 @@
             console.log("there was an error getting users translations!");
           });
       };
+
+      /**
+       * Add new translation
+       */
+      $scope.addNewTranslations = function () {
+        // check if all fields have been entered
+        if (checkInputValues() === true) {
+          var newTranslation = {
+            user_email: $scope.userEmail,
+            translating_to: $scope.transLanguages.toLanguage,
+            word_type: $scope.newTranslation.wordType,
+            words: [{
+              original: $scope.newTranslation.original,
+              translated: $scope.newTranslation.translated
+            }]
+          };
+
+          LangService.addNewTranslation(newTranslation)
+            .success(function() {
+              $scope.getTranslations();
+              $scope.newTranslation = {};
+            })
+            .error(function(status) {
+              console.log("There was something wrong adding new translation: " + status);
+            });
+
+        } else {
+          AlertService.show('danger', checkInputValues(), 2500);
+        }
+
+      };
+
 
       /**
        * Adds new types of words
@@ -56,7 +90,7 @@
 
           LangService.addWordType(data)
             .success(function () {
-              // $scope.getTranslations();
+              $scope.getTranslations();
               $scope.getWordTypes();
               AlertService.show('success', 'New word type added', 2500);
             })
@@ -98,10 +132,10 @@
        * Input value checker
        */
       var checkInputValues = function () {
-
-        if ($scope.transLanguages.toLang === undefined) {
-          return "Select translating language";
-        }
+// fix this
+//        if ($scope.transLanguages.toLanguage === undefined) {
+//          return "Select translating language";
+//        }
 
         if ($scope.newTranslation.wordType === undefined) {
           return "Select type of word";
