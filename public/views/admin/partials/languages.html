@@ -1,19 +1,22 @@
 <div class="" style="margin-bottom: 40px;">
-  <form class="form" role="form" ng-show="$parent.transLanguages.addGroup">
+  <form class="form" role="form" >
     <h4>Set language:</h4>
 
     <div class="form-group">
-      <input type="text" class="form-control" id="translateLanguage" ng-model="$parent.newLang.translate" placeholder="Enter translate lang">
+      <input type="text" class="form-control" id="translateLanguage" ng-model="$parent.transLanguages.toLanguage" placeholder="Enter translate lang">
+    </div>
+    <div class="form-group">
+      <a href="#" ng-click="$parent.toggleLanguagesSections()">New language?</a>
     </div>
   </form>
 
-  <div ng-hide="$parent.transLanguages.addGroup">
+  <div ng-hide="true">
     <h4>Choose language:</h4>
 
     <div class="form-group">
       <label class="custom-select">
-        <select name="chooseLang" ng-model="$parent.transLanguages.toLang">
-          <option ng-repeat="lang in $parent.transLanguages.listTransTo" value="{{ lang }}">
+        <select name="chooseLang" ng-model="$parent.transLanguages.toLanguage">
+          <option ng-repeat="lang in $parent.transLanguages.translating_to" value="{{ lang }}">
             {{ lang }}
           </option>
         </select>
