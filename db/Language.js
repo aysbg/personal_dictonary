@@ -3,17 +3,12 @@ var mongoose = require('mongoose'),
 
 var languageSchema = new Schema({
   user_email: { type: String, unique: true },
-  native_language: String,
   translating_to: String,
-  translations: [
+  word_type: String,
+  words: [
     {
-      wordType: String,
-      words: [
-        {
-          original: String,
-          translated:String
-        }
-      ]
+      original: String,
+      translated:String
     }
   ]
 });
