@@ -17,7 +17,11 @@
         },
 
         addWordType: function (data) {
-          return $http.post('/languages/types', data);
+          return $http.post('/wordtypes', data);
+        },
+
+        getWordTypes: function () {
+          return $http.get('/wordtypes');
         },
 
         addNewTranslation: function (data) {
